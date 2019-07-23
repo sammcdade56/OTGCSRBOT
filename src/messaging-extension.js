@@ -7,7 +7,7 @@ module.exports.setup = function () {
   const https = require('https');
 
   const subKey = '035f143314da4c2cb6b81542f30639c7';
-  const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjREVjZzVkxIM0FtU1JTbUZqMk04Wm5wWHU3WSJ9.eyJuYW1laWQiOiJhNjNkMjhjYy1hZGI4LTRlZGMtYmIzMS04ZTljZTBmZGE0NTUiLCJ0ZW5hbnRpZCI6IjhlNGYxYjU2LWMyZmUtNDE4OS1hN2VkLTg1NWQ3ODgxY2ExNiIsImFwcGxpY2F0aW9uaWQiOiJhMDU2Y2E2Yi1hM2E4LTRhYzctYjMyNS05OTc2NjYzMDZlNTIiLCJlbnZpcm9ubWVudGlkIjoidC16ZWFjeEx2cnprMlh4NXlzUWhQaWRBIiwiZW52aXJvbm1lbnRuYW1lIjoiQ2h1cmNoIERlbW8gRW52aXJvbm1lbnQgMSIsImxlZ2FsZW50aXR5aWQiOiJ0LU1ZS3JnTFRUdjBhUjFMakswbERhOUEiLCJsZWdhbGVudGl0eW5hbWUiOiJDaHVyY2ggRGVtbyIsImlzcyI6Imh0dHBzOi8vb2F1dGgyLnNreS5ibGFja2JhdWQuY29tLyIsImF1ZCI6IlJFeCIsImV4cCI6MTU2MzkxOTU5NSwibmJmIjoxNTYzOTE1OTk1fQ.XEiX7tbPoVnIahY8BethaWmw0uenaFT1b_KWwl4Iu-f4t7InHA4p6a8KZuHrCXUOAHF-EfAv6bmKGq9A8Nss-53cN5znhcQHoJVJ8HxVt0dL3gCzBEAx56fH2Vfz08J7MNAOai4gU5uu02GPrDr2GOvDDVxb405EZA3anB2wqxOjPiZkrAMufUEWv9LAUJb6D-SgoFR1GMi4fCZoY-kJebjcGCHgYdIy8MuQa87NyCLW13b2QMhD2xnPP1i7XLiNbuI5jY2pcCJOLrFC7HneF32wre-SGhcEe-r7bvFvpgdavMwhq33EwGRz0C23JmzC-NR9XdlzUaIzpAhoeV5DQQ';
+  const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjREVjZzVkxIM0FtU1JTbUZqMk04Wm5wWHU3WSJ9.eyJuYW1laWQiOiJhNjNkMjhjYy1hZGI4LTRlZGMtYmIzMS04ZTljZTBmZGE0NTUiLCJ0ZW5hbnRpZCI6IjhlNGYxYjU2LWMyZmUtNDE4OS1hN2VkLTg1NWQ3ODgxY2ExNiIsImFwcGxpY2F0aW9uaWQiOiJhMDU2Y2E2Yi1hM2E4LTRhYzctYjMyNS05OTc2NjYzMDZlNTIiLCJlbnZpcm9ubWVudGlkIjoidC16ZWFjeEx2cnprMlh4NXlzUWhQaWRBIiwiZW52aXJvbm1lbnRuYW1lIjoiQ2h1cmNoIERlbW8gRW52aXJvbm1lbnQgMSIsImxlZ2FsZW50aXR5aWQiOiJ0LU1ZS3JnTFRUdjBhUjFMakswbERhOUEiLCJsZWdhbGVudGl0eW5hbWUiOiJDaHVyY2ggRGVtbyIsImlzcyI6Imh0dHBzOi8vb2F1dGgyLnNreS5ibGFja2JhdWQuY29tLyIsImF1ZCI6IlJFeCIsImV4cCI6MTU2MzkyNDM2NiwibmJmIjoxNTYzOTIwNzY2fQ.KD7lQ5pxy2aUBf2riH7o8JFi1NwywAAH2J41R6nYyrOOGppNEHWKZsY_Vik0oXNvV8eKmNcGQZrJdhN3eUMro0VUQ9jN55ySyaxj02F25iBDdrQ1Nw3ehvamY6imQ5IcMFXx_JneSLChZkjRA4IGpojBdb00tvTcOks3SKtuo300Kj5FH1v26nPBqPMU8GsOP5Her5652v8Rti3Po13P7HH_KrgShqyklzydzx_nE88r-vY6HqwouTsGBF4j9H99gULQv0N11N1Z0P3x3oIQbYsVNDSYNvqt6WZ2VmWITEPfUdUFTa3Jp8Ly8SILIPtg8GesmF5OLUfIgxrUrnPo4w';
   const host = 'api.sky.blackbaud.com';
   const envId = 't-zeacxLvrzk2Xx5ysQhPidA'; // TODO get from authToken
 
@@ -267,8 +267,8 @@ module.exports.setup = function () {
     return new builder.ThumbnailCard()
       .title(constituent.name)
       .subtitle('<a href="mailto:' + constituent.email + '">' + constituent.email + '</a>')
-      // .text('Prospect status: ' + constituent.status + '<br/>line 2<br/>line 3')
-      .text('Prospect status: ' + constituent.status + '\nline 2\nline 3')
+      .text('Prospect status: ' + constituent.status + '<br/>line 2<br/>line 3')
+      // .text('Prospect status: ' + constituent.status + '\nline 2\nline 3')
       .images([new builder.CardImage().url(constituent.thumbnailUrl)])
       .tap({
         type: 'openUrl',

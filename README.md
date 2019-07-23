@@ -10,6 +10,7 @@
 * Link stuff just doesn't work sometimes, no idea why. I can fix it by restarting teams, which is stupid.
 * `<br/>` line breaks work for card thumbnail in chatbot message but not as page preview
 * Can I have a different card shown when clicking results from a list?
+* Connectors setup link shows error page about mailbox missing - correct link https://outlook.office.com/connectors/home/login/#/publish
 * Excluding `.text` from the following in the app link response makes it do nothing, and not show a console error
 ```
 var response = teamsBuilder.ComposeExtensionResponse
@@ -71,13 +72,19 @@ var response = teamsBuilder.ComposeExtensionResponse
 
 get notified when someone adds an action to my prospect
 
+This can't be done until sky api has webhooks
+
+* set up a new connector
+
 ## how to debug locally
 
-Run ./ngrok http 3333 -host-header=localhost:3333
-Replace the ngrok url in the teams config
-"Install" to the team
-Fix the oauth token
-Start debugging
+1. Run ./ngrok http 3333 -host-header=localhost:3333
+1. Replace the ngrok url in the teams config
+1. Update the ngrok url in the connector config
+1. "Install" to the team
+1. Fix the oauth token
+1. Start debugging
+1. Have to restart Teams if you restart the service to get link preview to work
 
 ## how to upload the app
 
