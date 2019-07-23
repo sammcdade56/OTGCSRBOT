@@ -1,28 +1,71 @@
+## Teams developer complaints
+
+* Documentation appears out of date with UI - screenshots and instructions don't match, lots of new fields and not sure what they do
+* No good way for multiple to work on the same app that I could find
+* I have to manually go into Teams and delete, import, install my app if I update the manifest
+* No indication that the app has been updated but not installed in App Studio
+* Can't copy text from error message in App Studio (took screenshot)
+* `/manifestVersion must be equal to...`
+* Can't test tabs inside app studio
+* Link stuff just doesn't work sometimes, no idea why. I can fix it by restarting teams, which is stupid.
+* `<br/>` line breaks work for card thumbnail in chatbot message but not as page preview
+* Can I have a different card shown when clicking results from a list?
+* Excluding `.text` from the following in the app link response makes it do nothing, and not show a console error
+```
+var response = teamsBuilder.ComposeExtensionResponse
+    .result('list')
+    .attachments([
+      new builder.ThumbnailCard()
+        .title('Constituent preview coming soon!')
+        .text('coming soon')
+        .toAttachment()
+    ])
+    .toResponse();
+```
+
 ## todo
+
+[Authentication](https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/messaging-extensions/search-extensions#authentication)
 
 ### constituent search action
 
-latest gift
-lifetime giving
-last action
-authentication
-  - can we avoid the timeout?
-why is it showing up twice?
+#### Done
+
+* Search RENXT's constituent search
+* Display top 5 results
+* Message if empty result
+* Show profile pic
+* Show email address
+* Show prospect status
+
+#### Not done
+
+* Can I show a different thing in the results list and on the card that is shown?
+* latest gift
+* lifetime giving
+* last action (list actions, latest date)
+* authentication
+  * can we avoid the timeout?
+* why is it showing up twice when you click what can I do?
 
 ### bot
 
-create an action
-docs are wrong
-`addTodo` on https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/messaging-extensions/create-extensions
-When this exact json is loaded, the UI in app studio does not match - parameters are not there
-No examples of how to hook up `connector.onInvoke`
-No information about what the invoke handler is supposed to return
-I have no idea what to do with this
+#### create an action
+* docs are wrong/unhelpful
+  * `addTodo` on https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/messaging-extensions/create-extensions
+    * When this exact json is loaded, the UI in app studio does not match - parameters are not there
+  * No examples of how to hook up `connector.onInvoke`
+  * No information about what the invoke handler is supposed to return
+* I have no idea what to do with this
 
 ### link
 
-see `exampleMessageHandler` on https://docs.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema
-Preview `renxt.blackbaud.com/constituent/{id}` when pasted into chat
+#### Done - Preview `renxt.blackbaud.com/constituent/{id}` when pasted into chat
+* see `exampleMessageHandler` on https://docs.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema
+* docs are wrong/unhelpful
+  * https://docs.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema lists `messageHandlers` which is not in the schema
+  * Seem to be correct: https://developer.microsoft.com/en-us/yammer/blogs/add-rich-previews-to-messages-using-link-unfurling/
+  * Ran into issue with `.text` documented above
 
 ### events
 

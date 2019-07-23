@@ -7,32 +7,128 @@ module.exports.setup = function () {
   const https = require('https');
 
   const subKey = '035f143314da4c2cb6b81542f30639c7';
-  const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjREVjZzVkxIM0FtU1JTbUZqMk04Wm5wWHU3WSJ9.eyJuYW1laWQiOiJhNjNkMjhjYy1hZGI4LTRlZGMtYmIzMS04ZTljZTBmZGE0NTUiLCJ0ZW5hbnRpZCI6IjhlNGYxYjU2LWMyZmUtNDE4OS1hN2VkLTg1NWQ3ODgxY2ExNiIsImFwcGxpY2F0aW9uaWQiOiJhMDU2Y2E2Yi1hM2E4LTRhYzctYjMyNS05OTc2NjYzMDZlNTIiLCJlbnZpcm9ubWVudGlkIjoidC16ZWFjeEx2cnprMlh4NXlzUWhQaWRBIiwiZW52aXJvbm1lbnRuYW1lIjoiQ2h1cmNoIERlbW8gRW52aXJvbm1lbnQgMSIsImxlZ2FsZW50aXR5aWQiOiJ0LU1ZS3JnTFRUdjBhUjFMakswbERhOUEiLCJsZWdhbGVudGl0eW5hbWUiOiJDaHVyY2ggRGVtbyIsImlzcyI6Imh0dHBzOi8vb2F1dGgyLnNreS5ibGFja2JhdWQuY29tLyIsImF1ZCI6IlJFeCIsImV4cCI6MTU2MzkwNzUzMywibmJmIjoxNTYzOTAzOTMzfQ.RJrZgZXAsxjsrUabtDjihiRDRrKU-pxNgAKLeNvz6DLoj5dKMw7loVcRxLFPHLE1Xwfoa2zbGKQxm9xWUZ2aHyD9nOOZRIybelvVJyLVeUN7MuGdC3uMWG6IXzXAL2Gayi8PPhCuKHoFTALLMclo0I0U7TSUgSXBvJUUNayCCNnoFgtKg-je6NAo6o8kQoMz-B7o0qoWMj__9wqtAgeTOZNvSK-vAODo_5YMjWYW0awvzJQmGzWsQNFbSwKHoTlhzuB7hhDf-dO1h9-gCzIWpwEqGKTbMvMTJIlwj4oNkWOo_du1SSBaDAaWuP1B8VQm0aa07cOfucshGn33zdLsFg';
+  const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjREVjZzVkxIM0FtU1JTbUZqMk04Wm5wWHU3WSJ9.eyJuYW1laWQiOiJhNjNkMjhjYy1hZGI4LTRlZGMtYmIzMS04ZTljZTBmZGE0NTUiLCJ0ZW5hbnRpZCI6IjhlNGYxYjU2LWMyZmUtNDE4OS1hN2VkLTg1NWQ3ODgxY2ExNiIsImFwcGxpY2F0aW9uaWQiOiJhMDU2Y2E2Yi1hM2E4LTRhYzctYjMyNS05OTc2NjYzMDZlNTIiLCJlbnZpcm9ubWVudGlkIjoidC16ZWFjeEx2cnprMlh4NXlzUWhQaWRBIiwiZW52aXJvbm1lbnRuYW1lIjoiQ2h1cmNoIERlbW8gRW52aXJvbm1lbnQgMSIsImxlZ2FsZW50aXR5aWQiOiJ0LU1ZS3JnTFRUdjBhUjFMakswbERhOUEiLCJsZWdhbGVudGl0eW5hbWUiOiJDaHVyY2ggRGVtbyIsImlzcyI6Imh0dHBzOi8vb2F1dGgyLnNreS5ibGFja2JhdWQuY29tLyIsImF1ZCI6IlJFeCIsImV4cCI6MTU2MzkxOTU5NSwibmJmIjoxNTYzOTE1OTk1fQ.XEiX7tbPoVnIahY8BethaWmw0uenaFT1b_KWwl4Iu-f4t7InHA4p6a8KZuHrCXUOAHF-EfAv6bmKGq9A8Nss-53cN5znhcQHoJVJ8HxVt0dL3gCzBEAx56fH2Vfz08J7MNAOai4gU5uu02GPrDr2GOvDDVxb405EZA3anB2wqxOjPiZkrAMufUEWv9LAUJb6D-SgoFR1GMi4fCZoY-kJebjcGCHgYdIy8MuQa87NyCLW13b2QMhD2xnPP1i7XLiNbuI5jY2pcCJOLrFC7HneF32wre-SGhcEe-r7bvFvpgdavMwhq33EwGRz0C23JmzC-NR9XdlzUaIzpAhoeV5DQQ';
   const host = 'api.sky.blackbaud.com';
   const envId = 't-zeacxLvrzk2Xx5ysQhPidA'; // TODO get from authToken
 
   console.log('CES messaging-extension setup');
 
   bot.connector.onInvoke(function (event, callback) {
-    console.log('CES messaging-extension addAction ' + JSON.stringify(event));
+    console.log('CES messaging-extension onInvoke ' + JSON.stringify(event));
     try {
       if (event.name == 'composeExtension/fetchTask') {
         // No idea what to do here, see readme
-          // bot.loadSession(event.address, (err, session) => {
-          //     let verificationCode = event.value.state;
-          //     // Get the user token using the verification code sent by MS Teams
-          //     connector.getUserToken(session.message.address, connectionName, verificationCode, (err, result) => {
-          //         session.send('Token ' + result.token);
-          //         session.userData.activeSignIn = false;
-                  callback(undefined, {}, 200);
-          //     });
-          // });
+        // bot.loadSession(event.address, (err, session) => {
+        //     let verificationCode = event.value.state;
+        //     // Get the user token using the verification code sent by MS Teams
+        //     connector.getUserToken(session.message.address, connectionName, verificationCode, (err, result) => {
+        //         session.send('Token ' + result.token);
+        //         session.userData.activeSignIn = false;
+        callback(undefined, {}, 200);
+        //     });
+        // });
       } else {
-          callback(undefined, {}, 200);
+        callback(undefined, {}, 200);
       }
     } catch (err) {
-        console.log(err);
+      console.log(err);
     }
+  });
+
+  bot.connector.onAppBasedLinkQuery(function (event, query, callback) {
+    console.log('CES messaging-extension onAppBasedLinkQuery ' + JSON.stringify(event) + ', query: ' + JSON.stringify(query));
+    // query.url = 'https://renxt.blackbaud.com/constituents/280?tenantid=8e4f1b56-c2fe-4189-a7ed-855d7881ca16&svcid=chrch'
+
+    var url = new URL(query.url);
+
+    if (url.host === 'renxt.blackbaud.com') {
+      if (url.pathname.substring(0, url.pathname.lastIndexOf('/') + 1) === '/constituents/') {
+        var constitId = url.pathname.substring(url.pathname.lastIndexOf('/') + 1);
+
+        var gotDetails = false;
+        var gotProfilePic = false;
+        var gotProspectStatus = false;
+
+        var constituent = {
+          id: constitId
+        };
+
+        getConstituentDetails(constitId, (details) => {
+          constituent.name = details.name;
+          constituent.email = details.email;
+          gotDetails = true;
+
+          if (gotDetails && gotProfilePic && gotProspectStatus) {
+            completeResponse();
+          }
+        });
+
+        getProfilePicForConstituent(constitId, (thumbnailUrl) => {
+          constituent.thumbnailUrl = thumbnailUrl;
+          gotProfilePic = true;
+
+          if (gotDetails && gotProfilePic && gotProspectStatus) {
+            completeResponse();
+          }
+        });
+
+        getProspectStatusForConstituent(constitId, (status) => {
+          constituent.status = status;
+          gotProspectStatus = true;
+
+          if (gotDetails && gotProfilePic && gotProspectStatus) {
+            completeResponse();
+          }
+        });
+
+      }
+
+      function completeResponse() {
+        var response = teamsBuilder.ComposeExtensionResponse
+          .result('list')
+          .attachments([
+            getConstituentAttachment(constituent)
+          ])
+          .toResponse();
+
+        callback(null, response, 200);
+      }
+    }
+
+    // CES host: renxt.blackbaud.com
+    // CES hostname: renxt.blackbaud.com
+    // CES href: https://renxt.blackbaud.com/constituents/280?tenantid=8e4f1b56-c2fe-4189-a7ed-855d7881ca16&svcid=chrch
+    // CES origin: https://renxt.blackbaud.com
+    // CES pathname: /constituents/280
+    // CES port:
+    // CES protocol: https:
+    // CES search: ?tenantid=8e4f1b56-c2fe-4189-a7ed-855d7881ca16&svcid=chrch
+    // CES searchParams: tenantid=8e4f1b56-c2fe-4189-a7ed-855d7881ca16&svcid=chrch
+
+  });
+
+  bot.connector.onComposeExtensionFetchTask(function (event, request, callback) {
+    console.log('CES messaging-extension onComposeExtensionFetchTask ');
+  });
+
+  bot.connector.onComposeExtensionSubmitAction(function (event, request, callback) {
+    console.log('CES messaging-extension onComposeExtensionSubmitAction ');
+  });
+
+  bot.connector.onEvent(function (events, callback) {
+    console.log('CES messaging-extension onEvent ' + JSON.stringify(events));
+  });
+
+  bot.connector.onO365ConnectorCardAction(function (event, query, callback) {
+    console.log('CES messaging-extension onO365ConnectorCardAction ');
+  });
+
+  bot.connector.onQuerySettingsUrl(function (event, query, callback) {
+    console.log('CES messaging-extension onQuerySettingsUrl ');
+  });
+
+  bot.connector.onSelectItem(function (event, query, callback) {
+    console.log('CES messaging-extension onSelectItem ');
   });
 
   bot.connector.onQuery('constituentSearch', function (event, query, callback) {
@@ -100,7 +196,7 @@ module.exports.setup = function () {
         var waitingStatuses = constits.length;
 
         for (var i = 0; i < constits.length; i++) {
-          getProfilePic(constits, i, (constits, i, thumbnailUrl) => {
+          getProfilePicForConstituents(constits, i, (constits, i, thumbnailUrl) => {
             constits[i].thumbnailUrl = thumbnailUrl;
             waitingThumbnails--;
 
@@ -111,7 +207,7 @@ module.exports.setup = function () {
         }
 
         for (var i = 0; i < constits.length; i++) {
-          getProspectStatus(constits, i, (constits, i, status) => {
+          getProspectStatusForConstituents(constits, i, (constits, i, status) => {
             constits[i].status = status;
             waitingStatuses--;
 
@@ -141,18 +237,7 @@ module.exports.setup = function () {
       var attachments = [];
 
       for (var i = 0; i < constits.length; i++) {
-        attachments.push(
-          new builder.ThumbnailCard()
-            .title(constits[i].name)
-            .subtitle('<a href="mailto:' + constits[i].email + '">' + constits[i].email + '</a>')
-            .text('Prospect status: ' + constits[i].status + '<br/>line 2<br/> line 3')
-            .images([new builder.CardImage().url(constits[i].thumbnailUrl)])
-            .tap({
-              type: 'openUrl',
-              title: 'Open constituent in RENXT',
-              value: `https://renxt.blackbaud.com/constituents/${constits[i].id}?envid=${envId}`
-            })
-            .toAttachment());
+        attachments.push(getConstituentAttachment(constits[i]));
       }
 
       // Build the response to be sent
@@ -165,80 +250,142 @@ module.exports.setup = function () {
       callback(null, response, 200);
     }
 
-    function getProspectStatus(constits, i, callback) {
-
-      var options2 = {
-        headers: {
-          'Bb-Api-Subscription-Key': subKey,
-          'Authorization': `Bearer ${authToken}`
-        },
-        method: 'GET',
-        protocol: 'https:',
-        defaultPort: 443,
-        host: host,
-        path: `/constituent/v1/constituents/${constits[i].id}/prospectstatus`
-      };
-
-      https.request(options2, (resp2) => {
-        // console.log('CES resp2: ' + JSON.stringify(resp2));
-        let data2 = '';
-
-        // A chunk of data has been recieved.
-        resp2.on('data', (chunk) => {
-          data2 += chunk;
-        });
-
-        // The whole response has been received. Print out the result.
-        resp2.on('end', () => {
-          // https://developer.blackbaud.com/skyapi/apis/constituent/entities#ProspectStatus
-          var dataObj = JSON.parse(data2);
-          console.log('Result : ' + constits[i].id + data2);
-          callback(constits, i, dataObj.status || 'N/A');
-        });
-      })
-        .on("error", (err) => {
-          console.log("Error: " + err.message);
-        })
-        .end();
+    function getProspectStatusForConstituents(constits, i, callback) {
+      getProspectStatusForConstituent(constits[i].id, function(status) {
+        callback(constits, i, status);
+      });
     }
 
-    function getProfilePic(constits, i, callback) {
-
-      var options2 = {
-        headers: {
-          'Bb-Api-Subscription-Key': subKey,
-          'Authorization': `Bearer ${authToken}`
-        },
-        method: 'GET',
-        protocol: 'https:',
-        defaultPort: 443,
-        host: host,
-        path: `/constituent/v1/constituents/${constits[i].id}/profilepicture`
-      };
-
-      https.request(options2, (resp2) => {
-        // console.log('CES resp2: ' + JSON.stringify(resp2));
-        let data2 = '';
-
-        // A chunk of data has been recieved.
-        resp2.on('data', (chunk) => {
-          data2 += chunk;
-        });
-
-        // The whole response has been received. Print out the result.
-        resp2.on('end', () => {
-          var dataObj = JSON.parse(data2);
-          // console.log('Result : ' + constits[i].id + data2);
-          var thumbnail = dataObj.thumbnail_url || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
-          callback(constits, i, thumbnail);
-        });
-      })
-        .on("error", (err) => {
-          console.log("Error: " + err.message);
-        })
-        .end();
+    function getProfilePicForConstituents(constits, i, callback) {
+      getProfilePicForConstituent(constits[i].id, function(thumbnail) {
+        callback(constits, i, thumbnail);
+      });
     }
-
   });
+
+  function getConstituentAttachment(constituent) {
+    return new builder.ThumbnailCard()
+      .title(constituent.name)
+      .subtitle('<a href="mailto:' + constituent.email + '">' + constituent.email + '</a>')
+      // .text('Prospect status: ' + constituent.status + '<br/>line 2<br/>line 3')
+      .text('Prospect status: ' + constituent.status + '\nline 2\nline 3')
+      .images([new builder.CardImage().url(constituent.thumbnailUrl)])
+      .tap({
+        type: 'openUrl',
+        title: 'Open constituent in RENXT',
+        value: `https://renxt.blackbaud.com/constituents/${constituent.id}?envid=${envId}`
+      })
+      .toAttachment();
+  }
+
+  function getConstituentDetails(constitId, callback) {
+
+    var options = {
+      headers: {
+        'Bb-Api-Subscription-Key': subKey,
+        'Authorization': `Bearer ${authToken}`
+      },
+      method: 'GET',
+      protocol: 'https:',
+      defaultPort: 443,
+      host: host,
+      path: `/constituent/v1/constituents/${constitId}`
+    };
+
+    https.request(options, (resp2) => {
+      let data2 = '';
+
+      // A chunk of data has been recieved.
+      resp2.on('data', (chunk) => {
+        data2 += chunk;
+      });
+
+      // The whole response has been received. Print out the result.
+      resp2.on('end', () => {
+        var dataObj = JSON.parse(data2);
+        // https://developer.blackbaud.com/skyapi/apis/constituent/entities#Constituent
+        var details = {
+          email: dataObj.email,
+          name: dataObj.name
+        };
+        callback(details);
+      });
+    })
+    .on("error", (err) => {
+      console.log("Error: " + err.message);
+    })
+    .end();
+  }
+
+  function getProfilePicForConstituent(constitId, callback) {
+
+    var options = {
+      headers: {
+        'Bb-Api-Subscription-Key': subKey,
+        'Authorization': `Bearer ${authToken}`
+      },
+      method: 'GET',
+      protocol: 'https:',
+      defaultPort: 443,
+      host: host,
+      path: `/constituent/v1/constituents/${constitId}/profilepicture`
+    };
+
+    https.request(options, (resp2) => {
+      // console.log('CES resp2: ' + JSON.stringify(resp2));
+      let data2 = '';
+
+      // A chunk of data has been recieved.
+      resp2.on('data', (chunk) => {
+        data2 += chunk;
+      });
+
+      // The whole response has been received. Print out the result.
+      resp2.on('end', () => {
+        var dataObj = JSON.parse(data2);
+        var thumbnail = dataObj.thumbnail_url || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+        callback(thumbnail);
+      });
+    })
+    .on("error", (err) => {
+      console.log("Error: " + err.message);
+    })
+    .end();
+  }
+
+  function getProspectStatusForConstituent(constitId, callback) {
+
+    var options = {
+      headers: {
+        'Bb-Api-Subscription-Key': subKey,
+        'Authorization': `Bearer ${authToken}`
+      },
+      method: 'GET',
+      protocol: 'https:',
+      defaultPort: 443,
+      host: host,
+      path: `/constituent/v1/constituents/${constitId}/prospectstatus`
+    };
+
+    https.request(options, (resp2) => {
+      let data2 = '';
+
+      // A chunk of data has been recieved.
+      resp2.on('data', (chunk) => {
+        data2 += chunk;
+      });
+
+      // The whole response has been received. Print out the result.
+      resp2.on('end', () => {
+        // https://developer.blackbaud.com/skyapi/apis/constituent/entities#ProspectStatus
+        var dataObj = JSON.parse(data2);
+        callback(dataObj.status || 'N/A');
+      });
+    })
+    .on("error", (err) => {
+      console.log("Error: " + err.message);
+    })
+    .end();
+  }
 
 };

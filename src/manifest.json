@@ -11,9 +11,9 @@
       "termsOfUseUrl": "https://www.blackbaud.com/company/terms-of-use"
   },
   "icons": {
-      "color": "blackbaud96x96.png",
-      "outline": "blackbaud20x20.png"
-  },
+    "color": "blackbaud96x96.png",
+    "outline": "blackbaud20x20.png"
+},
   "name": {
       "short": "Blackbaud (Christi)",
       "full": "Blackbaud for Teams"
@@ -112,6 +112,16 @@
                     }
                   ]
               }
+          ],
+          "messageHandlers": [
+            {
+              "type" : "link",
+              "value" : {
+                "domains" : [
+                  "*.blackbaud.com"
+                ]
+              }
+            }
           ]
       }
   ],

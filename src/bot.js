@@ -19,9 +19,9 @@ module.exports.setup = function(app) {
         appId: config.get("bot.appId"),
         appPassword: config.get("bot.appPassword")
     });
-    
+
     var inMemoryBotStorage = new builder.MemoryBotStorage();
-    
+
     // Define a simple bot with the above connector that echoes what it received
     var bot = new builder.UniversalBot(connector, function(session) {
         // Message might contain @mentions which we would like to strip off in the response
@@ -32,6 +32,9 @@ module.exports.setup = function(app) {
     // Setup an endpoint on the router for the bot to listen.
     // NOTE: This endpoint cannot be changed and must be api/messages
     app.post('/api/messages', connector.listen());
+
+    // Listen for compose messages for linking
+    app.post('/api/composeExtension', connector.listen());
 
     // Export the connector for any downstream integration - e.g. registering a messaging extension
     module.exports.connector = connector;
