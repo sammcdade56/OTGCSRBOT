@@ -3,29 +3,29 @@
   "manifestVersion": "1.5",
   "version": "1.0.0",
   "id": "af145f57-23fa-42e8-9b91-58ed5d3407e7",
-  "packageName": "com.contoso.helloworld",
+  "packageName": "com.blackbaud.christi.mshack",
   "developer": {
-      "name": "Contoso",
-      "websiteUrl": "https://www.microsoft.com",
-      "privacyUrl": "https://www.microsoft.com/privacy",
-      "termsOfUseUrl": "https://www.microsoft.com/termsofuse"
+      "name": "Blackbaud",
+      "websiteUrl": "https://www.blackbaud.com",
+      "privacyUrl": "https://www.blackbaud.com/privacy-policy.aspx",
+      "termsOfUseUrl": "https://www.blackbaud.com/company/terms-of-use"
   },
   "icons": {
       "color": "color.png",
       "outline": "outline.png"
   },
   "name": {
-      "short": "Hello World",
-      "full": "Hello World App for Microsoft Teams"
+      "short": "Blackbaud (Christi)",
+      "full": "Blackbaud for Teams"
   },
   "description": {
-      "short": "Hello World App for Microsoft Teams",
-      "full": "This sample app provides a very simple app for Microsoft Teams. You can extend this to add more content and capabilities."
+      "short": "Blackbaud App for Teams",
+      "full": "Christi for Microsoft Hackathon 2019"
   },
-  "accentColor": "#60A18E",
+  "accentColor": "#4D525A",
   "configurableTabs": [
       {
-          "configurationUrl": "https://msfthack-teams-christi.azurewebsites.net/configure",
+          "configurationUrl": "https://510dd696.ngrok.io/configure",
           "canUpdateConfiguration": true,
           "scopes": [
               "team"
@@ -63,9 +63,9 @@
               {
                   "id": "getRandomText",
                   "type": "query",
-                  "title": "Get some random text for fun",
-                  "description": "Gets some random text and images",
-                  "initialRun": true,
+                  "title": "Constituent search",
+                  "description": "Find a constituent in RENXT",
+                  "initialRun": false,
                   "fetchTask": false,
                   "context": [
                       "commandBox",
@@ -74,8 +74,8 @@
                   "parameters": [
                       {
                           "name": "cardTitle",
-                          "title": "Card title",
-                          "description": "Card title to use",
+                          "title": "Constituent name",
+                          "description": "Search text to find a constituent",
                           "inputType": "text"
                       }
                   ]
@@ -88,6 +88,9 @@
       "messageTeamMembers"
   ],
   "validDomains": [
-      "msfthack-teams-christi.azurewebsites.net"
+      "510dd696.ngrok.io",
+      "msfthack-teams-christi.azurewebsites.net",
+      "*.blackbaudhosting.com",
+      "*.blackbaud.com"
   ]
 }

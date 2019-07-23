@@ -1,3 +1,27 @@
+## todo
+
+### constituent search action
+
+prospect status
+latest gift
+lifetime giving
+last action
+authentication
+  - can we avoid the timeout?
+why is it showing up twice?
+
+### bot
+
+create an action
+
+## how to run
+
+Run ./ngrok http 3333 -host-header=localhost:3333
+Replace the ngrok url in the teams config
+"Install" to the team
+Fix the oauth token
+Start debugging
+
 ---
 topic: sample
 products:
@@ -59,7 +83,7 @@ Once you've installed the extensions, you'll see a new Azure icon on the left in
    MICROSOFT_APP_PASSWORD=<YOUR BOT'S APP PASSWORD>
    WEBSITE_NODE_DEFAULT_VERSION=8.9.4
    ```
-   
+
 1. Configure the Deployment Source for your app (either your local copy of this repository or one you've forked on GitHub).
 1. Deploy your web app. Visual Studio Code will tell you when you are done.
 
@@ -137,7 +161,7 @@ Once you've installed the extensions, you'll see a new Azure icon on the left in
    MICROSOFT_APP_PASSWORD=<YOUR BOT'S APP PASSWORD>
    WEBSITE_NODE_DEFAULT_VERSION=8.9.4
    ```
-   
+
 1. Configure the Deployment Source for your app (either your local copy of this repository or one you've forked on GitHub).
 1. Deploy your web app. Visual Studio Code will tell you when you are done.
 
