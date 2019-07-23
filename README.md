@@ -12,14 +12,41 @@ why is it showing up twice?
 ### bot
 
 create an action
+docs are wrong
+`addTodo` on https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/messaging-extensions/create-extensions
+When this exact json is loaded, the UI in app studio does not match - parameters are not there
+No examples of how to hook up `connector.onInvoke`
+No information about what the invoke handler is supposed to return
+I have no idea what to do with this
 
-## how to run
+### link
+
+see `exampleMessageHandler` on https://docs.microsoft.com/en-us/microsoftteams/platform/resources/schema/manifest-schema
+Preview `renxt.blackbaud.com/constituent/{id}` when pasted into chat
+
+### events
+
+get notified when someone adds an action to my prospect
+
+## how to debug locally
 
 Run ./ngrok http 3333 -host-header=localhost:3333
 Replace the ngrok url in the teams config
 "Install" to the team
 Fix the oauth token
 Start debugging
+
+## how to upload the app
+
+prereq:
+`npm i -g gulp
+
+gulp
+Open Teams' App studio
+Manifest editor
+Delete the one that's already there?
+Import an existing app
+Find `./manifest/blackbaudteamsapp.zip`
 
 ---
 topic: sample

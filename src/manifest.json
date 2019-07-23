@@ -11,8 +11,8 @@
       "termsOfUseUrl": "https://www.blackbaud.com/company/terms-of-use"
   },
   "icons": {
-      "color": "color.png",
-      "outline": "outline.png"
+      "color": "blackbaud96x96.png",
+      "outline": "blackbaud20x20.png"
   },
   "name": {
       "short": "Blackbaud (Christi)",
@@ -34,7 +34,7 @@
   ],
   "staticTabs": [
       {
-          "entityId": "com.contoso.helloworld.hellotab",
+          "entityId": "com.blackbaud.christi.hellotab",
           "name": "Hello Tab",
           "contentUrl": "https://msfthack-teams-christi.azurewebsites.net/hello",
           "websiteUrl": "https://msfthack-teams-christi.azurewebsites.net/hello",
@@ -61,7 +61,7 @@
           "canUpdateConfiguration": true,
           "commands": [
               {
-                  "id": "getRandomText",
+                  "id": "constituentSearch",
                   "type": "query",
                   "title": "Constituent search",
                   "description": "Find a constituent in RENXT",
@@ -73,11 +73,43 @@
                   ],
                   "parameters": [
                       {
-                          "name": "cardTitle",
+                          "name": "searchText",
                           "title": "Constituent name",
                           "description": "Search text to find a constituent",
                           "inputType": "text"
                       }
+                  ]
+              },
+              {
+                  "id": "addAction",
+                  "type": "action",
+                  "title": "Add action",
+                  "description": "Add an action for a constituent",
+                  "initialRun": false,
+                  "fetchTask": true,
+                  "context": [
+                      "commandBox",
+                      "compose"
+                  ],
+                  "parameters": [
+                    {
+                      "name": "Name",
+                      "description": "Action Title",
+                      "title": "Title",
+                      "inputType": "text"
+                    },
+                    {
+                      "name": "Description",
+                      "description": "Description of the action",
+                      "title": "Description",
+                      "inputType": "textarea"
+                    },
+                    {
+                      "name": "Date",
+                      "description": "Due date for the action",
+                      "title": "Date",
+                      "inputType": "date"
+                    }
                   ]
               }
           ]
