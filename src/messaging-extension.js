@@ -36,7 +36,7 @@ module.exports.setup = function () {
   });
 
   bot.connector.onAppBasedLinkQuery(function (event, query, callback) {
-    console.log('CES messaging-extension onAppBasedLinkQuery ' + JSON.stringify(event) + ', query: ' + JSON.stringify(query));
+    console.log('CES messaging-extension onAppBasedLinkQuery '); // + JSON.stringify(event) + ', query: ' + JSON.stringify(query));
     // query.url = 'https://renxt.blackbaud.com/constituents/280?tenantid=8e4f1b56-c2fe-4189-a7ed-855d7881ca16&svcid=chrch'
 
     var url = new URL(query.url);

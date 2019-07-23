@@ -1,5 +1,7 @@
 ## Teams developer complaints
 
+* No .NET Core example, the .NET framework example doesn't say that it's Framework only, and it explicitly tells you you have to use Visual Studio which I took the time to download only to find that my Mac can't build it
+* Documentation doesn't tell you how to hook anything up, just points you to examples which are fairly developer specific (gulp, directly linked npm package, pug)
 * Documentation appears out of date with UI - screenshots and instructions don't match, lots of new fields and not sure what they do
 * No good way for multiple to work on the same app that I could find
 * I have to manually go into Teams and delete, import, install my app if I update the manifest
