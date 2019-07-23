@@ -2,7 +2,6 @@
 
 ### constituent search action
 
-prospect status
 latest gift
 lifetime giving
 last action
