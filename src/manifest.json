@@ -1,0 +1,93 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.5",
+  "version": "1.0.0",
+  "id": "af145f57-23fa-42e8-9b91-58ed5d3407e7",
+  "packageName": "com.contoso.helloworld",
+  "developer": {
+      "name": "Contoso",
+      "websiteUrl": "https://www.microsoft.com",
+      "privacyUrl": "https://www.microsoft.com/privacy",
+      "termsOfUseUrl": "https://www.microsoft.com/termsofuse"
+  },
+  "icons": {
+      "color": "color.png",
+      "outline": "outline.png"
+  },
+  "name": {
+      "short": "Hello World",
+      "full": "Hello World App for Microsoft Teams"
+  },
+  "description": {
+      "short": "Hello World App for Microsoft Teams",
+      "full": "This sample app provides a very simple app for Microsoft Teams. You can extend this to add more content and capabilities."
+  },
+  "accentColor": "#60A18E",
+  "configurableTabs": [
+      {
+          "configurationUrl": "https://msfthack-teams-christi.azurewebsites.net/configure",
+          "canUpdateConfiguration": true,
+          "scopes": [
+              "team"
+          ]
+      }
+  ],
+  "staticTabs": [
+      {
+          "entityId": "com.contoso.helloworld.hellotab",
+          "name": "Hello Tab",
+          "contentUrl": "https://msfthack-teams-christi.azurewebsites.net/hello",
+          "websiteUrl": "https://msfthack-teams-christi.azurewebsites.net/hello",
+          "scopes": [
+              "personal"
+          ]
+      }
+  ],
+  "bots": [
+      {
+          "botId": "827c1bea-e6aa-4b1a-a89b-2d4cf867a118",
+          "scopes": [
+              "personal",
+              "team",
+              "groupchat"
+          ],
+          "supportsFiles": false,
+          "isNotificationOnly": false
+      }
+  ],
+  "composeExtensions": [
+      {
+          "botId": "827c1bea-e6aa-4b1a-a89b-2d4cf867a118",
+          "canUpdateConfiguration": true,
+          "commands": [
+              {
+                  "id": "getRandomText",
+                  "type": "query",
+                  "title": "Get some random text for fun",
+                  "description": "Gets some random text and images",
+                  "initialRun": true,
+                  "fetchTask": false,
+                  "context": [
+                      "commandBox",
+                      "compose"
+                  ],
+                  "parameters": [
+                      {
+                          "name": "cardTitle",
+                          "title": "Card title",
+                          "description": "Card title to use",
+                          "inputType": "text"
+                      }
+                  ]
+              }
+          ]
+      }
+  ],
+  "permissions": [
+      "identity",
+      "messageTeamMembers"
+  ],
+  "validDomains": [
+      "msfthack-teams-christi.azurewebsites.net"
+  ]
+}
