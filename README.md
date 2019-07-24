@@ -4,7 +4,9 @@
 * Documentation doesn't tell you how to hook anything up, just points you to examples which are fairly developer specific (gulp, directly linked npm package, express, pug)
 * Documentation appears out of date with UI - screenshots and instructions don't match, lots of new fields and not sure what they do
 * No good way for multiple to work on the same app that I could find
+  * I can't see/edit Bobby's manifest
 * I have to manually go into Teams and delete, import, install my app if I update the manifest
+  * Does the Guid matter? It doesn't appear to require unique - are there conflicts?
 * No indication that the app has been updated but not installed in App Studio
 * Can't copy text from error message in App Studio (took screenshot)
 * `/manifestVersion must be equal to...`
@@ -20,6 +22,7 @@
   * The button is for "add command" but the list of them is "bot menus"
   * How do I invoke this command?
     * For testing, I can go to my conversation with the bot and type grants. This triggers the code in bot.js.
+  * My bot is still called Contoso bot instead of Blackbaud
 * Excluding `.text` from the following in the app link response makes it do nothing, and not show a console error
 ```
 var response = teamsBuilder.ComposeExtensionResponse

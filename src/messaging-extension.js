@@ -18,7 +18,7 @@ module.exports.setup = function () {
     try {
       if (event.name == 'composeExtension/fetchTask') {
         // No idea what to do here, see readme
-        // bot.loadSession(event.address, (err, session) => {
+        // builder.UniversalBot.loadSession(event.address, (err, session) => {
         //     let verificationCode = event.value.state;
         //     // Get the user token using the verification code sent by MS Teams
         //     connector.getUserToken(session.message.address, connectionName, verificationCode, (err, result) => {

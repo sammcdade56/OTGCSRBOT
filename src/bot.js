@@ -32,24 +32,27 @@ module.exports.setup = function(app) {
 
         if (text === 'grants') {
 
-          // var response = teams.ComposeExtensionResponse
-          //   .result('list')
-          //   .attachments([
-          //     new builder.ThumbnailCard()
-          //       .title('Grant title')
-          //       .text('Grant text')
-          //       // .images([new builder.CardImage().url(constituent.thumbnailUrl)])
-          //       // .tap({
-          //       //   type: 'openUrl',
-          //       //   title: 'Open constituent in RENXT',
-          //       //   value: `https://renxt.blackbaud.com/constituents/${constituent.id}?envid=${envId}`
-          //       // })
-          //       .toAttachment()
-          //   ])
-          //   .toResponse();
+          var attachment1 = new builder.ThumbnailCard()
+                .title('Kite Foundation')
+                .text('<b>Deadline:</b> <span style="background-color: #f7a08f">7/15/2019</span><br/>' +
+                '<b>Funding range:</b> $500 - $5,000<br/>' +
+                'Accepting Applications')
+                .toAttachment()
+
+            var attachment2 = new builder.ThumbnailCard()
+              .title('Post & Courier')
+              .text('<b>Deadline:</b> <span style="background-color: #ffd597">7/25/2019</span><br/>' +
+              '<b>Funding range:</b> $10,000<br/>' +
+              'Accepting Applications')
+              .toAttachment()
 
           var msg = new builder.Message(session)
-               .text("Hello World!");
+            .summary('Grant applications')
+            .attachmentLayout('list') // carousel
+            .attachments([
+              attachment1,
+              attachment2
+            ]);
           session.send(msg);
 
         } else {
