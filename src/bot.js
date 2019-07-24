@@ -17,7 +17,10 @@ module.exports.setup = function(app) {
         // the config file (/config/default.json) OR then environment variables.
         // See node config module (https://www.npmjs.com/package/config) on how to create config files for your Node.js environment.
         appId: config.get("bot.appId"),
-        appPassword: config.get("bot.appPassword")
+        appPassword: config.get("bot.appPassword"),
+        authToken: config.get("bot.authToken"),
+        envId: config.get("bot.envId"),
+        subKey: config.get("bot.subKey")
     });
 
     var inMemoryBotStorage = new builder.MemoryBotStorage();

@@ -6,6 +6,9 @@
     },
     "bot": {
         "appId": "MICROSOFT_APP_ID",
-        "appPassword": "MICROSOFT_APP_PASSWORD"
+        "appPassword": "MICROSOFT_APP_PASSWORD",
+        "authToken": "BLACKBAUD_AUTH_TOKEN",
+        "envId": "BLACKBAUD_ENVIRONMENT_ID",
+        "subKey": "BLACKBAUD_API_KEY"
     }
 }
