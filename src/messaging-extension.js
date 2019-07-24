@@ -148,6 +148,53 @@ module.exports.setup = function () {
       ? query.parameters[0].value
       : '';
 
+    fakeConstituentSearch(searchText, callback);
+    // performConstituentSearch(searchText, callback);
+  });
+
+  function fakeConstituentSearch(searchText, callback) {
+
+    if (!(searchText.startsWith('r') || searchText.startsWith('R'))) {
+
+      // Build the response to be sent
+      var response = teamsBuilder.ComposeExtensionResponse
+        .result('list')
+        .attachments([
+          new builder.ThumbnailCard()
+            .title('No results')
+            .toAttachment()
+        ])
+        .toResponse();
+
+      // Send the response to teams
+      callback(null, response, 200);
+
+      return;
+    }
+
+    var constits = [
+      {
+        id: 280,
+        name: 'Robert C. Hernandez',
+        email: 'robertcarloshernandez@gmail.com',
+        status: 'Active',
+        thumbnailUrl: 'https://pbs.twimg.com/profile_images/475991457333919745/nOiHduxv_400x400.jpeg'
+      },
+      {
+        id: 1,
+        name: 'Richard Herman',
+        email: 'richyrich55@gmail.com',
+        status: 'N/A',
+        thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
+      }
+    ];
+
+    completeSearch(constits, callback)
+
+  }
+
+  function performConstituentSearch(searchText, callback) {
+
     var options = {
       headers: {
         'Bb-Api-Subscription-Key': subKey,
@@ -241,25 +288,6 @@ module.exports.setup = function () {
         waitingStatuses === 0;
     }
 
-    function completeSearch(constits, callback) {
-
-      // Build the data to send
-      var attachments = [];
-
-      for (var i = 0; i < constits.length; i++) {
-        attachments.push(getConstituentAttachment(constits[i]));
-      }
-
-      // Build the response to be sent
-      var response = teamsBuilder.ComposeExtensionResponse
-        .result('list')
-        .attachments(attachments)
-        .toResponse();
-
-      // Send the response to teams
-      callback(null, response, 200);
-    }
-
     function getProspectStatusForConstituents(constits, i, callback) {
       getProspectStatusForConstituent(constits[i].id, function(status) {
         callback(constits, i, status);
@@ -271,7 +299,26 @@ module.exports.setup = function () {
         callback(constits, i, thumbnail);
       });
     }
-  });
+  }
+
+  function completeSearch(constits, callback) {
+
+    // Build the data to send
+    var attachments = [];
+
+    for (var i = 0; i < constits.length; i++) {
+      attachments.push(getConstituentAttachment(constits[i]));
+    }
+
+    // Build the response to be sent
+    var response = teamsBuilder.ComposeExtensionResponse
+      .result('list')
+      .attachments(attachments)
+      .toResponse();
+
+    // Send the response to teams
+    callback(null, response, 200);
+  }
 
   function getConstituentAttachment(constituent) {
     return new builder.ThumbnailCard()
