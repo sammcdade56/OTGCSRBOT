@@ -13,6 +13,13 @@
 * `<br/>` line breaks work for card thumbnail in chatbot message but not as page preview
 * Can I have a different card shown when clicking results from a list?
 * Connectors setup link shows error page about mailbox missing - correct link https://outlook.office.com/connectors/home/login/#/publish
+* Bot command
+  * I don't see docs about creating a bot command, I just found it in the manifest
+    * Found https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/bots/bots-menus
+      * No instructions about how to implement
+  * The button is for "add command" but the list of them is "bot menus"
+  * How do I invoke this command?
+    * For testing, I can go to my conversation with the bot and type grants. This triggers the code in bot.js.
 * Excluding `.text` from the following in the app link response makes it do nothing, and not show a console error
 ```
 var response = teamsBuilder.ComposeExtensionResponse

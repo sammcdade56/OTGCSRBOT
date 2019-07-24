@@ -29,7 +29,33 @@ module.exports.setup = function(app) {
     var bot = new builder.UniversalBot(connector, function(session) {
         // Message might contain @mentions which we would like to strip off in the response
         var text = teams.TeamsMessage.getTextWithoutMentions(session.message);
-        session.send('You said: %s', text);
+
+        if (text === 'grants') {
+
+          // var response = teams.ComposeExtensionResponse
+          //   .result('list')
+          //   .attachments([
+          //     new builder.ThumbnailCard()
+          //       .title('Grant title')
+          //       .text('Grant text')
+          //       // .images([new builder.CardImage().url(constituent.thumbnailUrl)])
+          //       // .tap({
+          //       //   type: 'openUrl',
+          //       //   title: 'Open constituent in RENXT',
+          //       //   value: `https://renxt.blackbaud.com/constituents/${constituent.id}?envid=${envId}`
+          //       // })
+          //       .toAttachment()
+          //   ])
+          //   .toResponse();
+
+          var msg = new builder.Message(session)
+               .text("Hello World!");
+          session.send(msg);
+
+        } else {
+          session.send('You said: %s', text);
+        }
+
     }).set('storage', inMemoryBotStorage);
 
     // Setup an endpoint on the router for the bot to listen.
