@@ -51,6 +51,41 @@
               "team",
               "groupchat"
           ],
+          "commandLists": [
+              {
+                  "scopes": [
+                      "personal"
+                  ],
+                  "commands": [
+                      {
+                          "title": "grants",
+                          "description": "Grant Management"
+                      }
+                  ]
+              },
+              {
+                  "scopes": [
+                      "team"
+                  ],
+                  "commands": [
+                      {
+                          "title": "grants",
+                          "description": "Grant Management"
+                      }
+                  ]
+              },
+              {
+                  "scopes": [
+                      "groupchat"
+                  ],
+                  "commands": [
+                      {
+                          "title": "grants",
+                          "description": "Grant Management"
+                      }
+                  ]
+              }
+          ],
           "supportsFiles": false,
           "isNotificationOnly": false
       }
