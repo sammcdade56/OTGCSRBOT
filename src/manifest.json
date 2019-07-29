@@ -1,0 +1,182 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.5",
+  "version": "1.0.0",
+  "id": "af145f57-23fa-42e8-9b91-58ed5d3407e7",
+  "packageName": "com.blackbaud.christi.mshack",
+  "developer": {
+      "name": "Blackbaud",
+      "websiteUrl": "https://www.blackbaud.com",
+      "privacyUrl": "https://www.blackbaud.com/privacy-policy.aspx",
+      "termsOfUseUrl": "https://www.blackbaud.com/company/terms-of-use"
+  },
+  "icons": {
+      "color": "color.png",
+      "outline": "outline.png"
+  },
+  "name": {
+      "short": "Blackbaud (Christi)",
+      "full": "Blackbaud for Teams"
+  },
+  "description": {
+      "short": "Blackbaud App for Teams",
+      "full": "Christi for Microsoft Hackathon 2019"
+  },
+  "accentColor": "#4D525A",
+  "configurableTabs": [
+      {
+          "configurationUrl": "https://msfthack-teams-christi.azurewebsites.net/configure",
+          "canUpdateConfiguration": true,
+          "scopes": [
+              "team"
+          ]
+      }
+  ],
+  "staticTabs": [
+      {
+          "entityId": "com.blackbaud.christi.hellotab",
+          "name": "Hello Tab",
+          "contentUrl": "https://msfthack-teams-christi.azurewebsites.net/hello",
+          "websiteUrl": "https://msfthack-teams-christi.azurewebsites.net/hello",
+          "scopes": [
+              "personal"
+          ]
+      }
+  ],
+  "bots": [
+      {
+          "botId": "827c1bea-e6aa-4b1a-a89b-2d4cf867a118",
+          "scopes": [
+              "personal",
+              "team",
+              "groupchat"
+          ],
+          "commandLists": [
+              {
+                  "scopes": [
+                      "personal",
+                      "team",
+                      "groupchat"
+                  ],
+                  "commands": [
+                      {
+                          "title": "grants",
+                          "description": "Grant Management"
+                      }
+                  ]
+              }
+          ],
+          "supportsFiles": false,
+          "isNotificationOnly": false
+      }
+  ],
+  "connectors": [
+      {
+          "connectorId": "4dd46acc-0e3a-4cc2-9e9a-bdb922b8f9b6",
+          "configurationUrl": "https://msfthack-teams-christi.azurewebsites.net/configure",
+          "scopes": [
+              "team"
+          ]
+      }
+  ],
+  "composeExtensions": [
+      {
+          "botId": "827c1bea-e6aa-4b1a-a89b-2d4cf867a118",
+          "canUpdateConfiguration": true,
+          "commands": [
+              {
+                  "id": "constituentSearch",
+                  "type": "query",
+                  "title": "Constituent search",
+                  "description": "Find a constituent in RENXT",
+                  "initialRun": false,
+                  "fetchTask": false,
+                  "context": [
+                      "commandBox",
+                      "compose"
+                  ],
+                  "parameters": [
+                      {
+                          "name": "searchText",
+                          "title": "Constituent name",
+                          "description": "Search text to find a constituent",
+                          "inputType": "text"
+                      }
+                  ]
+              },
+              {
+                  "id": "addAction",
+                  "type": "action",
+                  "title": "Add action",
+                  "description": "Add an action for a constituent",
+                  "initialRun": false,
+                  "fetchTask": true,
+                  "context": [
+                      "commandBox",
+                      "compose"
+                  ],
+                  "parameters": [
+                      {
+                          "name": "param",
+                          "title": "param",
+                          "description": ""
+                      }
+                  ],
+                  "taskInfo": {
+                      "title": "Add an Action",
+                      "width": "medium",
+                      "height": "medium",
+                      "url": "https://msfthack-teams-christi.azurewebsites.net/addAction.html"
+                  }
+              },
+              {
+                  "id": "addAction2",
+                  "type": "action",
+                  "title": "Add action 2",
+                  "description": "",
+                  "initialRun": false,
+                  "fetchTask": false,
+                  "context": [
+                      "commandBox",
+                      "compose"
+                  ],
+                  "parameters": [
+                      {
+                          "name": "title",
+                          "title": "Action title",
+                          "description": "",
+                          "inputType": "text"
+                      },
+                      {
+                          "name": "dueDate",
+                          "title": "Due date",
+                          "description": "",
+                          "inputType": "date"
+                      }
+                  ]
+              }
+          ],
+          "messageHandlers": [
+              {
+                  "type": "link",
+                  "value": {
+                      "domains": [
+                          "*.blackbaud.com"
+                      ]
+                  }
+              }
+          ]
+      }
+  ],
+  "permissions": [
+      "identity",
+      "messageTeamMembers"
+  ],
+  "validDomains": [
+      "ef1fe385.ngrok.io",
+      "msfthack-teams-christi.azurewebsites.net",
+      "510dd696.ngrok.io",
+      "*.blackbaudhosting.com",
+      "*.blackbaud.com"
+  ]
+}
