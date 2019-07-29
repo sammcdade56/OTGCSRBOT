@@ -14,7 +14,16 @@
 * Link stuff just doesn't work sometimes, no idea why. I can fix it by restarting teams, which is stupid.
 * `<br/>` line breaks work for card thumbnail in chatbot message but not as page preview
 * Can I have a different card shown when clicking results from a list?
-* Connectors setup link shows error page about mailbox missing - correct link https://outlook.office.com/connectors/home/login/#/publish
+* Connectors
+  * Connectors setup link shows error page about mailbox missing - correct link https://outlook.office.com/connectors/home/login/#/publish
+  * Why would I need a Teams Connector? I don't see a way to configure it anyway
+    * Expected workflow...
+      1. Earlier, the database admin configured Teams to connect to RENXT - this hooked Microsoft Flow up to a channel that is now "subscribed" to get a message when new actions are added (Flow subscribes to the webhook)
+        * Is this where the connector comes in? Does this allow the Flow to actually hook up to the client's Teams instance?
+      1. The president of the university runs into major donor Robert Hernandez at a golf course, learns that his son is getting married in a month
+      1. The president's secretary adds an action in RENXT to Robert Hernandez documenting this, and a future action to send a congratulatory note
+      1. The SKY API webhook for "new action added" is called, which a Microsoft Flow is subscribed to
+      1. The Microsoft Flow uses the Teams connector in Flow to create a message in the configured Teams channel
 * Bot command
   * I don't see docs about creating a bot command, I just found it in the manifest
     * Found https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/bots/bots-menus

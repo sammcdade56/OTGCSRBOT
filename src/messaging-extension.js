@@ -18,15 +18,19 @@ module.exports.setup = function () {
     try {
       if (event.name == 'composeExtension/fetchTask') {
         // No idea what to do here, see readme
-        // builder.UniversalBot.loadSession(event.address, (err, session) => {
-        //     let verificationCode = event.value.state;
-        //     // Get the user token using the verification code sent by MS Teams
-        //     connector.getUserToken(session.message.address, connectionName, verificationCode, (err, result) => {
-        //         session.send('Token ' + result.token);
-        //         session.userData.activeSignIn = false;
-        callback(undefined, {}, 200);
-        //     });
-        // });
+        // This is untested but according to the guy from Microsoft Teams, should work.
+        // "you’re just doing manually what that SDK call is supposed to do for you"
+        callback(null, {
+          "task": {
+            "type": "continue",
+            "value": {
+              "title": "Add an action",
+              "height": "large",
+              "width": "large",
+              "url": "https://ef1fe385.ngrok.io/addAction.html"
+            }
+          }
+        }, 200);
       } else {
         callback(undefined, {}, 200);
       }
