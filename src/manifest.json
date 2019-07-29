@@ -11,8 +11,8 @@
       "termsOfUseUrl": "https://www.blackbaud.com/company/terms-of-use"
   },
   "icons": {
-    "color": "blackbaud96x96.png",
-    "outline": "blackbaud20x20.png"
+      "color": "color.png",
+      "outline": "outline.png"
   },
   "name": {
       "short": "Blackbaud (Christi)",
@@ -50,6 +50,21 @@
               "personal",
               "team",
               "groupchat"
+          ],
+          "commandLists": [
+              {
+                  "scopes": [
+                      "personal",
+                      "team",
+                      "groupchat"
+                  ],
+                  "commands": [
+                      {
+                          "title": "grants",
+                          "description": "Grant Management"
+                      }
+                  ]
+              }
           ],
           "supportsFiles": false,
           "isNotificationOnly": false
@@ -106,7 +121,13 @@
                           "title": "param",
                           "description": ""
                       }
-                  ]
+                  ],
+                  "taskInfo": {
+                      "title": "Add an Action",
+                      "width": "medium",
+                      "height": "medium",
+                      "url": "https://msfthack-teams-christi.azurewebsites.net/addAction.html"
+                  }
               },
               {
                   "id": "addAction2",
@@ -152,7 +173,9 @@
       "messageTeamMembers"
   ],
   "validDomains": [
+      "ef1fe385.ngrok.io",
       "msfthack-teams-christi.azurewebsites.net",
+      "510dd696.ngrok.io",
       "*.blackbaudhosting.com",
       "*.blackbaud.com"
   ]

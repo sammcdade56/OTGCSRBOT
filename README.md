@@ -4,7 +4,9 @@
 * Documentation doesn't tell you how to hook anything up, just points you to examples which are fairly developer specific (gulp, directly linked npm package, express, pug)
 * Documentation appears out of date with UI - screenshots and instructions don't match, lots of new fields and not sure what they do
 * No good way for multiple to work on the same app that I could find
+  * I can't see/edit Bobby's manifest
 * I have to manually go into Teams and delete, import, install my app if I update the manifest
+  * Does the Guid matter? It doesn't appear to require unique - are there conflicts?
 * No indication that the app has been updated but not installed in App Studio
 * Can't copy text from error message in App Studio (took screenshot)
 * `/manifestVersion must be equal to...`
@@ -12,7 +14,24 @@
 * Link stuff just doesn't work sometimes, no idea why. I can fix it by restarting teams, which is stupid.
 * `<br/>` line breaks work for card thumbnail in chatbot message but not as page preview
 * Can I have a different card shown when clicking results from a list?
-* Connectors setup link shows error page about mailbox missing - correct link https://outlook.office.com/connectors/home/login/#/publish
+* Connectors
+  * Connectors setup link shows error page about mailbox missing - correct link https://outlook.office.com/connectors/home/login/#/publish
+  * Why would I need a Teams Connector? I don't see a way to configure it anyway
+    * Expected workflow...
+      1. Earlier, the database admin configured Teams to connect to RENXT - this hooked Microsoft Flow up to a channel that is now "subscribed" to get a message when new actions are added (Flow subscribes to the webhook)
+        * Is this where the connector comes in? Does this allow the Flow to actually hook up to the client's Teams instance?
+      1. The president of the university runs into major donor Robert Hernandez at a golf course, learns that his son is getting married in a month
+      1. The president's secretary adds an action in RENXT to Robert Hernandez documenting this, and a future action to send a congratulatory note
+      1. The SKY API webhook for "new action added" is called, which a Microsoft Flow is subscribed to
+      1. The Microsoft Flow uses the Teams connector in Flow to create a message in the configured Teams channel
+* Bot command
+  * I don't see docs about creating a bot command, I just found it in the manifest
+    * Found https://docs.microsoft.com/en-us/microsoftteams/platform/concepts/bots/bots-menus
+      * No instructions about how to implement
+  * The button is for "add command" but the list of them is "bot menus"
+  * How do I invoke this command?
+    * For testing, I can go to my conversation with the bot and type grants. This triggers the code in bot.js.
+  * My bot is still called Contoso bot instead of Blackbaud
 * Excluding `.text` from the following in the app link response makes it do nothing, and not show a console error
 ```
 var response = teamsBuilder.ComposeExtensionResponse

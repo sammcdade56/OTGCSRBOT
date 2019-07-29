@@ -29,7 +29,36 @@ module.exports.setup = function(app) {
     var bot = new builder.UniversalBot(connector, function(session) {
         // Message might contain @mentions which we would like to strip off in the response
         var text = teams.TeamsMessage.getTextWithoutMentions(session.message);
-        session.send('You said: %s', text);
+
+        if (text === 'grants') {
+
+          var attachment1 = new builder.ThumbnailCard()
+                .title('Kite Foundation')
+                .text('<b>Deadline:</b> <span style="background-color: #f7a08f">7/15/2019</span><br/>' +
+                '<b>Funding range:</b> $500 - $5,000<br/>' +
+                'Accepting Applications')
+                .toAttachment()
+
+            var attachment2 = new builder.ThumbnailCard()
+              .title('Post & Courier')
+              .text('<b>Deadline:</b> <span style="background-color: #ffd597">7/25/2019</span><br/>' +
+              '<b>Funding range:</b> $10,000<br/>' +
+              'Accepting Applications')
+              .toAttachment()
+
+          var msg = new builder.Message(session)
+            .summary('Grant applications')
+            .attachmentLayout('list') // carousel
+            .attachments([
+              attachment1,
+              attachment2
+            ]);
+          session.send(msg);
+
+        } else {
+          session.send('You said: %s', text);
+        }
+
     }).set('storage', inMemoryBotStorage);
 
     // Setup an endpoint on the router for the bot to listen.

@@ -18,15 +18,19 @@ module.exports.setup = function () {
     try {
       if (event.name == 'composeExtension/fetchTask') {
         // No idea what to do here, see readme
-        // bot.loadSession(event.address, (err, session) => {
-        //     let verificationCode = event.value.state;
-        //     // Get the user token using the verification code sent by MS Teams
-        //     connector.getUserToken(session.message.address, connectionName, verificationCode, (err, result) => {
-        //         session.send('Token ' + result.token);
-        //         session.userData.activeSignIn = false;
-        callback(undefined, {}, 200);
-        //     });
-        // });
+        // This is untested but according to the guy from Microsoft Teams, should work.
+        // "you’re just doing manually what that SDK call is supposed to do for you"
+        callback(null, {
+          "task": {
+            "type": "continue",
+            "value": {
+              "title": "Add an action",
+              "height": "large",
+              "width": "large",
+              "url": "https://ef1fe385.ngrok.io/addAction.html"
+            }
+          }
+        }, 200);
       } else {
         callback(undefined, {}, 200);
       }
@@ -107,29 +111,39 @@ module.exports.setup = function () {
 
   });
 
-  bot.connector.onComposeExtensionFetchTask(function (event, request, callback) {
-    console.log('CES messaging-extension onComposeExtensionFetchTask ');
-  });
+  // bot.connector.onComposeExtensionFetchTask(function (event, request, callback) {
+  //   console.log('CES messaging-extension onComposeExtensionFetchTask ');
 
-  bot.connector.onComposeExtensionSubmitAction(function (event, request, callback) {
-    console.log('CES messaging-extension onComposeExtensionSubmitAction ');
-  });
+  //   // TaskModuleResponse<ITaskModuleContinueResponse>.createResponseOfFetch();
+  //   var response = new TaskModuleContinueResponse()
+  //     .title('Add an Action')
+  //     .url('https://ef1fe385.ngrok.io/addAction.html')
+  //     .height('large')
+  //     .width('large')
+  //     .toResponseOfFetch();
 
-  bot.connector.onEvent(function (events, callback) {
-    console.log('CES messaging-extension onEvent ' + JSON.stringify(events));
-  });
+  //   callback(undefined, response, 200);
+  // });
 
-  bot.connector.onO365ConnectorCardAction(function (event, query, callback) {
-    console.log('CES messaging-extension onO365ConnectorCardAction ');
-  });
+  // bot.connector.onComposeExtensionSubmitAction(function (event, request, callback) {
+  //   console.log('CES messaging-extension onComposeExtensionSubmitAction ');
+  // });
 
-  bot.connector.onQuerySettingsUrl(function (event, query, callback) {
-    console.log('CES messaging-extension onQuerySettingsUrl ');
-  });
+  // bot.connector.onEvent(function (events, callback) {
+  //   console.log('CES messaging-extension onEvent ' + JSON.stringify(events));
+  // });
 
-  bot.connector.onSelectItem(function (event, query, callback) {
-    console.log('CES messaging-extension onSelectItem ');
-  });
+  // bot.connector.onO365ConnectorCardAction(function (event, query, callback) {
+  //   console.log('CES messaging-extension onO365ConnectorCardAction ');
+  // });
+
+  // bot.connector.onQuerySettingsUrl(function (event, query, callback) {
+  //   console.log('CES messaging-extension onQuerySettingsUrl ');
+  // });
+
+  // bot.connector.onSelectItem(function (event, query, callback) {
+  //   console.log('CES messaging-extension onSelectItem ');
+  // });
 
   bot.connector.onQuery('constituentSearch', function (event, query, callback) {
     console.log('CES messaging-extension constituentSearch');
@@ -137,6 +151,53 @@ module.exports.setup = function () {
     var searchText = query.parameters && query.parameters[0].name === 'searchText'
       ? query.parameters[0].value
       : '';
+
+    fakeConstituentSearch(searchText, callback);
+    // performConstituentSearch(searchText, callback);
+  });
+
+  function fakeConstituentSearch(searchText, callback) {
+
+    if (!(searchText.startsWith('r') || searchText.startsWith('R'))) {
+
+      // Build the response to be sent
+      var response = teamsBuilder.ComposeExtensionResponse
+        .result('list')
+        .attachments([
+          new builder.ThumbnailCard()
+            .title('No results')
+            .toAttachment()
+        ])
+        .toResponse();
+
+      // Send the response to teams
+      callback(null, response, 200);
+
+      return;
+    }
+
+    var constits = [
+      {
+        id: 280,
+        name: 'Robert C. Hernandez',
+        email: 'robertcarloshernandez@gmail.com',
+        status: 'Active',
+        thumbnailUrl: 'https://pbs.twimg.com/profile_images/475991457333919745/nOiHduxv_400x400.jpeg'
+      },
+      {
+        id: 1,
+        name: 'Richard Herman',
+        email: 'richyrich55@gmail.com',
+        status: 'N/A',
+        thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
+      }
+    ];
+
+    completeSearch(constits, callback)
+
+  }
+
+  function performConstituentSearch(searchText, callback) {
 
     var options = {
       headers: {
@@ -231,25 +292,6 @@ module.exports.setup = function () {
         waitingStatuses === 0;
     }
 
-    function completeSearch(constits, callback) {
-
-      // Build the data to send
-      var attachments = [];
-
-      for (var i = 0; i < constits.length; i++) {
-        attachments.push(getConstituentAttachment(constits[i]));
-      }
-
-      // Build the response to be sent
-      var response = teamsBuilder.ComposeExtensionResponse
-        .result('list')
-        .attachments(attachments)
-        .toResponse();
-
-      // Send the response to teams
-      callback(null, response, 200);
-    }
-
     function getProspectStatusForConstituents(constits, i, callback) {
       getProspectStatusForConstituent(constits[i].id, function(status) {
         callback(constits, i, status);
@@ -261,7 +303,26 @@ module.exports.setup = function () {
         callback(constits, i, thumbnail);
       });
     }
-  });
+  }
+
+  function completeSearch(constits, callback) {
+
+    // Build the data to send
+    var attachments = [];
+
+    for (var i = 0; i < constits.length; i++) {
+      attachments.push(getConstituentAttachment(constits[i]));
+    }
+
+    // Build the response to be sent
+    var response = teamsBuilder.ComposeExtensionResponse
+      .result('list')
+      .attachments(attachments)
+      .toResponse();
+
+    // Send the response to teams
+    callback(null, response, 200);
+  }
 
   function getConstituentAttachment(constituent) {
     return new builder.ThumbnailCard()
