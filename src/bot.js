@@ -7,8 +7,10 @@ module.exports.setup = function (app) {
   var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
   const https = require('https');
 
+  var firstAccess = true;
+
   const subKey = '84704ed0-a429-4516-8a9d-fccab0bb49aa'; // '035f143314da4c2cb6b81542f30639c7';
-  const host = 'api.yourcauseuat.com';
+  const host = 'api.yourcauseuat.com'
 
   if (!config.has("bot.appId")) {
     // We are running locally; fix up the location of the config directory and re-intialize config
@@ -36,7 +38,17 @@ module.exports.setup = function (app) {
     var text = teams.TeamsMessage.getTextWithoutMentions(session.message);
 
     var email = getEmail(session);
+    if (firstAccess) {
+      // session.send('WELCOME, BITCH');
+      // localSession = session;
+      firstAccess = false;
+      var welcome = 'Hello! Welcome to CSRobot! \n CSRobot is a bot designed to make it easier for you to track your personal engagement in social good, as well as be aware of the positive impact you and your coworkers have on your community and the world. Please type <b>help</b> for more info.'
+      var welcomemessage = new builder.Message()
+        .address(session.message.address)
+        .text(welcome);
 
+      session.send(welcomemessage, function (err) { });
+    }
     if (text === 'me') {
       getEmployeeData(email).then(function (response) {
         var employeeData = JSON.parse(response);
@@ -44,7 +56,8 @@ module.exports.setup = function (app) {
           .title('Your Donation and Volunteering Metrics:')
           .text(`<b>Total Donations:</b> ${employeeData.employeeDonations[0].totalAmount}<br/>` +
             `<b>Total Corporate Match Donations:</b> ${employeeData.companyDonations[0].totalAmount + employeeData.companyDonations[1].totalAmount + employeeData.companyDonations[2].totalAmount}<br/>` +
-            `<b>Total Volunteering Hours:</b> ${employeeData.volunteerParticipations.events.totalHours + employeeData.volunteerParticipations.activities.totalHours + employeeData.volunteerParticipations.npoEvents.totalHours}<br/>`)
+            `<b>Total Volunteering Hours:</b> ${employeeData.volunteerParticipations.events.totalHours + employeeData.volunteerParticipations.activities.totalHours + employeeData.volunteerParticipations.npoEvents.totalHours}<br/>` +
+            `For More Information, Please <a href="https://yc.yourcauseuat.com/home#/give/mygiving">View Your Giving History </a> or  <a href="https://yc.yourcauseuat.com/home#/newvolunteer">View Your Volunteer History </a> `)
           .toAttachment()
         var msg = new builder.Message(session)
           .summary('Your Donation and Volunteering Metrics')
