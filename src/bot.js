@@ -38,36 +38,25 @@ module.exports.setup = function (app) {
     var email = getEmail(session);
 
     if (text === 'me') {
-      var response = 'Here is your data: ' + getConstituentData(session);
-      session.send(response);
-    }
-    // if (text === 'grants') {
+      getEmployeeData(email).then(function (response) {
+        var employeeData = JSON.parse(response);
+        var attachment = new builder.ThumbnailCard()
+          .title('Your Donation and Volunteering Metrics:')
+          .text(`<b>Total Donations:</b> ${employeeData.employeeDonations[0].totalAmount}<br/>` +
+            `<b>Total Corporate Match Donations:</b> ${employeeData.companyDonations[0].totalAmount + employeeData.companyDonations[1].totalAmount + employeeData.companyDonations[2].totalAmount}<br/>` +
+            `<b>Total Volunteering Hours:</b> ${employeeData.volunteerParticipations.events.totalHours + employeeData.volunteerParticipations.activities.totalHours + employeeData.volunteerParticipations.npoEvents.totalHours}<br/>`)
+          .toAttachment()
+        var msg = new builder.Message(session)
+          .summary('Your Donation and Volunteering Metrics')
+          .attachmentLayout('list') // carousel
+          .attachments([
+            attachment
+          ]);
+        session.send(msg);
+      });
 
-    //   var attachment1 = new builder.ThumbnailCard()
-    //     .title('Kite Foundation')
-    //     .text('<b>Deadline:</b> <span style="background-color: #f7a08f">7/15/2019</span><br/>' +
-    //       '<b>Funding range:</b> $500 - $5,000<br/>' +
-    //       'Accepting Applications')
-    //     .toAttachment()
 
-    //   var attachment2 = new builder.ThumbnailCard()
-    //     .title('Post & Courier')
-    //     .text('<b>Deadline:</b> <span style="background-color: #ffd597">7/25/2019</span><br/>' +
-    //       '<b>Funding range:</b> $10,000<br/>' +
-    //       'Accepting Applications')
-    //     .toAttachment()
-
-    //   var msg = new builder.Message(session)
-    //     .summary('Grant applications')
-    //     .attachmentLayout('list') // carousel
-    //     .attachments([
-    //       attachment1,
-    //       attachment2
-    //     ]);
-    //   session.send(msg);
-
-    // }
-    else {
+    } else {
       session.send('You said: %s', text);
     }
 
@@ -90,61 +79,62 @@ module.exports.setup = function (app) {
       conversationId,
       (err, result) => {
         if (err) {
-          console.log(1);
-          // session.endDialog('There is some error');
+          session.endDialog('There is some error');
         }
         else {
-          var record = JSON.stringify(result);
-          console.log(record);
-          console.log(result.userPrincipalName);
-          return result.userPrincipalName;
-          // session.endDialog('%s', JSON.stringify(result));
+          var email = '';
+          result.forEach(element => {
+            if (element.id == session.message.user.id) {
+              email = element.userPrincipalName;
+            }
+          });
+          return email;
         }
       }
     );
+    return '';
   }
 
-  function getConstituentData(text) {
-    // var options = {
-    //   // headers: {
-    //   //   'x-bb-Key': subKey,
-    //   //   'accept': 'text/plain'
-    //   // },
-    //   method: 'GET',
-    //   protocol: 'https:',
-    //   defaultPort: 443,
-    //   host: host,
-    //   path: '/v1/employees/Jewell.Willett@yourcause.com/'
-    // };
-    // console.log('test');
-    // const req = https.request(options, (resp) => {
+  function getEmployeeData(email) {
+    // determines email
+    if (email === 'jj.odell@hacko365.onmicrosoft.com') {
+      email = 'Jewell.Willett@yourcause.com';
+    } else {
+      email = 'Wes.Hendrix@yourcause.com';
+    }
 
-    //   console.log('test2');
-    //   let data = ''
-
-    //   resp.on('data', (chunk) => {
-    //     console.log('test2');
-    //     data += chunk;
-    //     console.log(chunk);
-    //   });
-
-    //   resp.on('end', () => {
-    //     console.log('test2');
-    //     console.log(data);
-    //   });
-    // });
-    console.log('test');
     const Http = new XMLHttpRequest();
-    const url = 'https://api.yourcauseuat.com/v1/metrics/give';
+    var url = `https://api.yourcauseuat.com/v1/employees/${email}/`;
     Http.open("GET", url);
     Http.setRequestHeader("x-bb-Key", "84704ed0-a429-4516-8a9d-fccab0bb49aa");
-    console.log(Http.getAllResponseHeaders());
-    Http.send();
-    Http.onreadystatechange = (e) => {
-      console.log(Http.responseText)
-    }
-    console.log('here');
-    return '';
+    Http.setRequestHeader("accept", "application/json");
+    var employeeId;
+    return new Promise(function (resolve, reject) {
+      Http.send();
+      Http.onreadystatechange = () => {
+        if (Http.readyState === 4) {
+          // gets the id from the string (JSON.parse() caused errors)
+          var searchTerm = '"affiliateEmployeeId":';
+          var response = Http.responseText.substr(Http.responseText.indexOf(searchTerm) + searchTerm.length);
+          employeeId = response.substr(0, response.indexOf(','));
+          url = `https://api.yourcauseuat.com/v1/employees/${employeeId}/metrics/`
+          const Http2 = new XMLHttpRequest();
+          Http2.open("GET", url);
+          Http2.setRequestHeader("x-bb-Key", "84704ed0-a429-4516-8a9d-fccab0bb49aa");
+          Http2.setRequestHeader("accept", "application/json");
+          Http2.send();
+          Http2.onreadystatechange = () => {
+            if (Http2.readyState === 4) {
+              if (Http2.status >= 300) {
+                reject('Error, status code ' + Http2.status);
+              } else {
+                resolve(Http2.responseText);
+              }
+            }
+          }
+        }
+      }
+    });
 
   }
 };
