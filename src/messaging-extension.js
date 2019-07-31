@@ -27,7 +27,7 @@ module.exports.setup = function () {
               "title": "Add an action",
               "height": "large",
               "width": "large",
-              "url": "https://ef1fe385.ngrok.io/addAction.html"
+              "url": "https://f4a0d6ce.ngrok.io/addAction.html"
             }
           }
         }, 200);
