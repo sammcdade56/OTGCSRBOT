@@ -27,7 +27,7 @@ module.exports.setup = function () {
               "title": "Add an action",
               "height": "large",
               "width": "large",
-              "url": "https://f4a0d6ce.ngrok.io/addAction.html"
+              "url": "https://8be7c45d.ngrok.io/addAction.html"
             }
           }
         }, 200);
@@ -99,51 +99,7 @@ module.exports.setup = function () {
       }
     }
 
-    // CES host: renxt.blackbaud.com
-    // CES hostname: renxt.blackbaud.com
-    // CES href: https://renxt.blackbaud.com/constituents/280?tenantid=8e4f1b56-c2fe-4189-a7ed-855d7881ca16&svcid=chrch
-    // CES origin: https://renxt.blackbaud.com
-    // CES pathname: /constituents/280
-    // CES port:
-    // CES protocol: https:
-    // CES search: ?tenantid=8e4f1b56-c2fe-4189-a7ed-855d7881ca16&svcid=chrch
-    // CES searchParams: tenantid=8e4f1b56-c2fe-4189-a7ed-855d7881ca16&svcid=chrch
-
   });
-
-  // bot.connector.onComposeExtensionFetchTask(function (event, request, callback) {
-  //   console.log('CES messaging-extension onComposeExtensionFetchTask ');
-
-  //   // TaskModuleResponse<ITaskModuleContinueResponse>.createResponseOfFetch();
-  //   var response = new TaskModuleContinueResponse()
-  //     .title('Add an Action')
-  //     .url('https://ef1fe385.ngrok.io/addAction.html')
-  //     .height('large')
-  //     .width('large')
-  //     .toResponseOfFetch();
-
-  //   callback(undefined, response, 200);
-  // });
-
-  // bot.connector.onComposeExtensionSubmitAction(function (event, request, callback) {
-  //   console.log('CES messaging-extension onComposeExtensionSubmitAction ');
-  // });
-
-  // bot.connector.onEvent(function (events, callback) {
-  //   console.log('CES messaging-extension onEvent ' + JSON.stringify(events));
-  // });
-
-  // bot.connector.onO365ConnectorCardAction(function (event, query, callback) {
-  //   console.log('CES messaging-extension onO365ConnectorCardAction ');
-  // });
-
-  // bot.connector.onQuerySettingsUrl(function (event, query, callback) {
-  //   console.log('CES messaging-extension onQuerySettingsUrl ');
-  // });
-
-  // bot.connector.onSelectItem(function (event, query, callback) {
-  //   console.log('CES messaging-extension onSelectItem ');
-  // });
 
   bot.connector.onQuery('constituentSearch', function (event, query, callback) {
     console.log('CES messaging-extension constituentSearch');
