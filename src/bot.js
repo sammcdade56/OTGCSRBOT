@@ -4,19 +4,6 @@ module.exports.setup = function (app) {
     var builder = require('botbuilder');
     var teams = require('botbuilder-teams');
     var config = require('config');
-    var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-    const https = require('https');
-
-    var check = 'this is a check';
-
-    //var codewordMapping = new Map();
-    //codewordMapping.set('emergency', 'https://api.yourcauseuat.com/v1/metrics/engagementelements');
-    //codewordMapping.set('active', 'https://api.yourcauseuat.com/v1/metrics/engagementelements');
-    //codewordMapping.set('top', 'https://api.yourcauseuat.com/v1/metrics/charities');
-    //codewordMapping.set('emergency', 'https://api.yourcauseuat.com/v1/metrics/engagementelements');
-
-    const subKey = '84704ed0-a429-4516-8a9d-fccab0bb49aa'; // '035f143314da4c2cb6b81542f30639c7';
-    const host = 'api.yourcauseuat.com';
 
     if (!config.has("bot.appId")) {
         // We are running locally; fix up the location of the config directory and re-intialize config
@@ -44,15 +31,12 @@ module.exports.setup = function (app) {
         var text = teams.TeamsMessage.getTextWithoutMentions(session.message);
 
         var email = getEmail(session);
-        //if (codewordMapping.has(text)) {
-        //    getUserDataWithPromise(codewordMapping.get(text)).then(function (result) {
-        //        session.send(result);
-        //        var tom = result.split(',');
-        //        console.log(tom);
-        //    }); 
+
+        //This is where it tests for which command that was sent
         if (text === 'company') {
             var promise1 = getUserDataWithPromise('https://api.yourcauseuat.com/v1/metrics/give');
             var promise2 = getUserDataWithPromise('https://api.yourcauseuat.com/v1/metrics/volunteer');
+            //This waits for both promises to resolve and then parses the data to return 
             Promise.all([promise1, promise2]).then(function (response) {
                 var givingData = JSON.parse(response[0]);
                 var volunteeringData = JSON.parse(response[1]);
@@ -75,7 +59,7 @@ module.exports.setup = function (app) {
                 for (var i = 0; i < givingData.data.length; i++) {
                     totalAmount += givingData.data[i].totalAmount;
                 }
-
+                //This creates a tile for the return message
                 var attachment1 = new builder.ThumbnailCard()
                     .title('Your Company\'s Volunteering Metrics:')
                     .text('<b>Total Hours:</b> ' + totalHours + '<br/>' +
@@ -86,6 +70,7 @@ module.exports.setup = function (app) {
                     .text('<b>Total Donations:</b> ' + totalAmount.toFixed(2) + '<br/>' +
                         '<b>Number of Donors:</b> ' + givingData.totalUniqueDonors + '<br/>')
                     .toAttachment()
+                //This builds the message to send with the attachments
                 var msg = new builder.Message(session)
                     .summary('Your Company\'s Donation and Volunteering Metrics')
                     .attachmentLayout('list') // carousel
@@ -107,8 +92,9 @@ module.exports.setup = function (app) {
                     str = str + '<b>Name:</b>' + ' ' + engagementElements.data[i].name + '<br/>';
                     str = str + '<b>Total Donors:</b>' + ' ' + engagementElements.data[i].totalDonors + '<br/>';
                     str = str + '<b>Total Amount:</b>' + ' ' + engagementElements.data[i].totalAmount + '<br/>';
-                    var bone = 'https://yc.yourcauseuat.com/home#/engagement/' + engagementElements.data[i].engagementElementId;
-                    str += '<a href="' + bone + '">View the Campaign Here</a>';
+                    //This is attaching the link that the user can use to go to more engagement
+                    var attach = 'https://yc.yourcauseuat.com/home#/engagement/' + engagementElements.data[i].engagementElementId;
+                    str += '<a href="' + attach + '">View the Campaign Here</a>';
                     str = str + '<br/>';
                 }
                 var attachment3 = new builder.ThumbnailCard()
@@ -117,11 +103,7 @@ module.exports.setup = function (app) {
                     .toAttachment()
 
                 var str2 = '';
-                console.log(giveCampaigns);
-                console.log(giveCampaigns.data[0]);
-                console.log(giveCampaigns.data[0].campaignName);
                 for (var j = 0; j < giveCampaigns.data.length; j++) {
-                    console.log(j);
                     str2 = str2 + '<b>Charity Name:</b>' + ' ' + giveCampaigns.data[j].campaignName + '<br/>';
                     str2 = str2 + '<b>Total Donors:</b>' + ' ' + giveCampaigns.data[j].totalDonors + '<br/>';
                     str2 = str2 + '<b>Total Amount:</b>' + ' ' + giveCampaigns.data[j].totalAmount + '<br/>';
@@ -145,7 +127,6 @@ module.exports.setup = function (app) {
         } else if (text === 'urgent') {
             getUserDataWithPromise('https://api.yourcauseuat.com/v1/metrics/engagementelements').then(function (result) {
                 var ret = JSON.parse(result);
-                console.log(ret);
                 var str = '';
                 for (var i = 0; i < ret.data.length; i++) {
                     str = str + '<b>Name:</b>' + ' ' + ret.data[i].name + '<br/>';
@@ -169,9 +150,7 @@ module.exports.setup = function (app) {
             });
         } else if (text === 'active') {
             getUserDataWithPromise('https://api.yourcauseuat.com/v1/metrics/give/campaigns').then(function (result) {
-                console.log(result);
                 var ret = JSON.parse(result);
-                console.log(ret);
                 var str = '';
                 for (var i = 0; i < ret.data.length; i++) {
                     str = str + '<b>Charity Name:</b>' + ' ' + ret.data[i].campaignName + '<br/>';
@@ -195,7 +174,6 @@ module.exports.setup = function (app) {
         } else if (text === 'top charities') {
             getUserDataWithPromise('https://api.yourcauseuat.com/v1/metrics/charities').then(function (result) {
                 var ret = JSON.parse(result);
-                console.log(ret);
                 var str = '';
                 for (var i = 0; i < ret.give.length; i++) {
                     str = str + '<b>Charity Name:</b>' + ' ' + ret.give[i].charityName + '<br/>';
@@ -243,7 +221,7 @@ module.exports.setup = function (app) {
                 ]);
             session.send(msg);
         }
-
+        
         else {
             session.send('You said: %s', text);
         }
@@ -272,8 +250,6 @@ module.exports.setup = function (app) {
                 }
                 else {
                     var record = JSON.stringify(result);
-                    console.log(record);
-                    console.log(result.userPrincipalName);
                     return result.userPrincipalName;
                     // session.endDialog('%s', JSON.stringify(result));
                 }
@@ -281,10 +257,14 @@ module.exports.setup = function (app) {
         );
     }
 
+    //This is the function that calls the api to get the data
+    //It hits the url that is passed to it
+    //Returns a promise that will resolve to the API response text
     function getUserDataWithPromise(url) {
         var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
         var xhr = new XMLHttpRequest();
         return new Promise(function (resolve, reject) {
+            //Waits for the request to get to the state of a response and then resolves the response to the api response text
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4) {
                     if (xhr.status >= 300) {
