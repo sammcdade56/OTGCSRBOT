@@ -69,6 +69,7 @@ module.exports.setup = function (app) {
     } else if (text === 'company') {
       var promise1 = getUserDataWithPromise('https://api.yourcauseuat.com/v1/metrics/give');
       var promise2 = getUserDataWithPromise('https://api.yourcauseuat.com/v1/metrics/volunteer');
+      //This waits for both promises to resolve and then parses the data to return 
       Promise.all([promise1, promise2]).then(function (response) {
         var givingData = JSON.parse(response[0]);
         var volunteeringData = JSON.parse(response[1]);
@@ -91,7 +92,7 @@ module.exports.setup = function (app) {
         for (var i = 0; i < givingData.data.length; i++) {
           totalAmount += givingData.data[i].totalAmount;
         }
-
+        //This creates a tile for the return message
         var attachment1 = new builder.ThumbnailCard()
           .title('Your Company\'s Volunteering Metrics:')
           .text('<b>Total Hours:</b> ' + totalHours + '<br/>' +
@@ -100,8 +101,9 @@ module.exports.setup = function (app) {
         var attachment2 = new builder.ThumbnailCard()
           .title('Your Company\'s Giving Metrics:')
           .text('<b>Total Donations:</b> ' + totalAmount.toFixed(2) + '<br/>' +
-            '<b>Number of Donors:</b> ' + givingData.totalUniqueDonors + '<br/><br/> <a href="https://yc.yourcauseuat.com/home#/give/mygiving">View Your Companies Volunteer/Giving History </a> <br/> ')
+            '<b>Number of Donors:</b> ' + givingData.totalUniqueDonors + '<br/>')
           .toAttachment()
+        //This builds the message to send with the attachments
         var msg = new builder.Message(session)
           .summary('Your Company\'s Donation and Volunteering Metrics')
           .attachmentLayout('list') // carousel
@@ -123,12 +125,13 @@ module.exports.setup = function (app) {
           str = str + '<b>Name:</b>' + ' ' + engagementElements.data[i].name + '<br/>';
           str = str + '<b>Total Donors:</b>' + ' ' + engagementElements.data[i].totalDonors + '<br/>';
           str = str + '<b>Total Amount:</b>' + ' ' + engagementElements.data[i].totalAmount + '<br/>';
-          var bone = 'https://yc.yourcauseuat.com/home#/engagement/' + engagementElements.data[i].engagementElementId;
-          str += '<a href="' + bone + '">View the Campaign Here</a>';
+          //This is attaching the link that the user can use to go to more engagement
+          var attach = 'https://yc.yourcauseuat.com/home#/engagement/' + engagementElements.data[i].engagementElementId;
+          str += '<a href="' + attach + '">View the Campaign Here</a>';
           str = str + '<br/>';
         }
         var attachment3 = new builder.ThumbnailCard()
-          .title('Help Now! These Nonprofits Need Our Help:')
+          .title('Help Now! These nonprofits need our help:')
           .text(str)
           .toAttachment()
 
@@ -141,7 +144,7 @@ module.exports.setup = function (app) {
         }
         str2 += '<a href="https://yc.yourcauseuat.com/home#/give/mygiving">Click here to Donate</a>';
         var attachment4 = new builder.ThumbnailCard()
-          .title('Donate to Our Company-wide Giving Campaigns:')
+          .title('Donate to our company-wide giving campaigns:')
           .text(str2)
           .toAttachment()
 
@@ -167,7 +170,7 @@ module.exports.setup = function (app) {
           str = str + '<br/>';
         }
         var attachment = new builder.ThumbnailCard()
-          .title('Help Now! These Nonprofits Need Our Help:')
+          .title('Help Now! These nonprofits need our help:')
           .text(str)
           .toAttachment()
         var msg = new builder.Message(session)
@@ -190,7 +193,7 @@ module.exports.setup = function (app) {
         }
         str += '<a href="https://yc.yourcauseuat.com/home#/give/mygiving">Click here to Donate</a>';
         var attachment = new builder.ThumbnailCard()
-          .title('Active Give Campaigns:')
+          .title('Campaigns:')
           .text(str)
           .toAttachment()
         var msg = new builder.Message(session)
@@ -221,7 +224,7 @@ module.exports.setup = function (app) {
         }
         str += '<a href="https://yc.yourcauseuat.com/home#/newvolunteer">Click here to Volunteer</a>';
         var attachment = new builder.ThumbnailCard()
-          .title('Here Are the Top Charities Your Company Helped this Quarter!')
+          .title('Here are the top charities your Company helped this quarter!')
           .text(str)
           .toAttachment()
         var msg = new builder.Message(session)
@@ -234,7 +237,7 @@ module.exports.setup = function (app) {
       });
     } else if (text === 'help') {
       var attachment = new builder.ThumbnailCard()
-        .title('CSRobot Commands:')
+        .title('Commands:')
         .text('<b> me:</b> Your Donation and Volunteering Metrics<br/>' +
           '<b> company:</b> Company-wide Donation and Volunteering Metrics<br/>' +
           '<b> urgent:</b> Engagement Elements- Urgent Giving Campaigns<br/>' +
@@ -250,12 +253,6 @@ module.exports.setup = function (app) {
           attachment
         ]);
       session.send(msg);
-    } else {
-      var msg = "I'm sorry, we did not recognize this command. Please type <b>help</b> to view our accepted commands!";
-      var returnMessage = new builder.Message()
-        .address(session.message.address)
-        .text(msg);
-      session.send(returnMessage, function (err) { });
     }
   }).set('storage', inMemoryBotStorage);
 
@@ -287,10 +284,14 @@ module.exports.setup = function (app) {
     );
   }
 
+  //This is the function that calls the api to get the data
+  //It hits the url that is passed to it
+  //Returns a promise that will resolve to the API response text
   function getUserDataWithPromise(url) {
     var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
     var xhr = new XMLHttpRequest();
     return new Promise(function (resolve, reject) {
+      //Waits for the request to get to the state of a response and then resolves the response to the api response text
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
           if (xhr.status >= 300) {
