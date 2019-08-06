@@ -7,7 +7,7 @@ languages:
 title: CSRobot
 description: Microsoft Teams chatbot 
 extensions:
-  createdDate: 08/05/2019
+  Created on: 08/05/2019
 ---
 ### CSRobot Setup
 
@@ -40,7 +40,7 @@ Follow the development set up at https://docs.microsoft.com/en-us/microsoftteams
 12. Also change the instance of “ngrok.io” in the manifest.json and messaging-extension.js are pointing to the correct location.
 
 From here, you can run npm start in the directory that your code is in, and the bot will be online.
----
+
 
 ### How to debug locally
 
