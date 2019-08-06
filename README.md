@@ -76,6 +76,16 @@ From here, you can run npm start in the directory that your code is in, and the 
 
 More information on =how to get started with Microsoft Teams development can be found in [Get started on the Microsoft Teams platform with Node.js and App Studio](https://docs.microsoft.com/en-us/microsoftteams/platform/get-started/get-started-nodejs-app-studio).
 
+# File Conventions
+  * ```src``` folder: Contains source code and images pertaining to the chatbot.
+  * ```src/static/images``` folder: Folder containing images to be used in the bot's thumbnail.
+  * ```src/static/scripts``` folder: Contains the initializing script, setting parameters in the bot to match the user's preferences within Teams.
+  * ```src/static/styles``` folder: Contains the CSS files for the chatbot.
+  * ```src/views``` folder: Contains a separate ```.pug``` file for each of the chatbot's tabs.
+  * ```app.js``` file: Initializes the chatbot object, along with it's tabs and messaging extensions.
+  * ```bot.js``` file: Includes the logic for each cmmand the chatbot supports.
+  * ```tabs.js``` file: Includes the logic which renders each tab.
+
 # Using this sample locally
 
 This sample can be run locally using `ngrok` as described in the [official documentation](https://docs.microsoft.com/en-us/microsoftteams/platform/get-started/get-started-nodejs-app-studio), but you'll need to set up some environment variables. There are many ways to do this, but the easiest, if you are using Visual Studio Code, is to add a [launch configuration](https://code.visualstudio.com/Docs/editor/debugging#_launch-configurations):
