@@ -53,7 +53,7 @@ From here, you can run npm start in the directory that your code is in, and the 
 6. Start debugging.
 7. Must restart Teams if you restart the service to get link preview to work.
 
-
+## Features
 #### Completed Features
 
 * Social Good statistics on-demand
