@@ -71,7 +71,6 @@ From here, you can run npm start in the directory that your code is in, and the 
 * Implement insights, tracking how the bot is being used
 * Implement a competitions feature
 
----
 # Official documentation
 
 More information on =how to get started with Microsoft Teams development can be found in [Get started on the Microsoft Teams platform with Node.js and App Studio](https://docs.microsoft.com/en-us/microsoftteams/platform/get-started/get-started-nodejs-app-studio).
