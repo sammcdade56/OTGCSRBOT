@@ -32,11 +32,11 @@ Follow the development set up at https://docs.microsoft.com/en-us/microsoftteams
 
 8. Update the Bot endpoint address to https://yourteamsapp.ngrok.io/api/messages, where yourteamsapp.ngrok.io should be replaced by the URL that you used above when hosting your app.
 
-9. Follow the guide’s setup for messaging extensions (https://docs.microsoft.com/en-us/microsoftteams/platform/get-started/get-started-nodejs-app-studio)
+9. Click the Add button under commands. This command will not be used but is required, so just fill in the required fields.
 
 10. Go to test and distribute, select install, and make sure the toggle for add to you is on yes, and if you want you can also add it to a team or specific chat. If you add it to a team, when you click install it will ask you which channels in the team to add the bot to. Select the ones you desire to add it to.
 
-11. Now, to setup the bot, go to the code file and follow the guides instructions for updating the app for ngrok. For the app to be connected, you need to specifically update the BASE_URI to point to the url saved earlier, the MICROSOFT_APP_ID to match the app ID (note: this is different from the bot ID and should be found on the app details tab), and the MICROSOFT_APP_PASSWORD which you saved earlier.
+11. Now, to setup the bot, go to the code file and follow the guides instructions for updating the app for ngrok. For the app to be connected, you need to specifically update the BASE_URI to point to the url saved earlier, the MICROSOFT_APP_ID to match the app ID (note: this is different from the bot ID and should be found on the app details tab), and the MICROSOFT_APP_PASSWORD which you saved earlier. Each of these will be found in the launch.json . The microsoft documentation specifies that this is how to setup for VS and VS code, so we are unsure if changing this will function the same for other IDE's and editors.
 
 12. Also change the instance of “ngrok.io” in the manifest.json and messaging-extension.js are pointing to the correct location.
 
