@@ -43,7 +43,7 @@ Follow the development set up at https://docs.microsoft.com/en-us/microsoftteams
 From here, you can run npm start in the directory that your code is in, and the bot will be online.
 
 
-### How to debug locally
+## How to debug locally
 
 1. Run ./ngrok http 3333 using the folloing command: ```-host-header=localhost:3333 ```
 2. Replace the ngrok url in the teams config file.
@@ -74,7 +74,7 @@ From here, you can run npm start in the directory that your code is in, and the 
 ---
 # Official documentation
 
-More information for this sample - and for how to get started with Microsoft Teams development in general - is found in [Get started on the Microsoft Teams platform with Node.js and App Studio](https://docs.microsoft.com/en-us/microsoftteams/platform/get-started/get-started-nodejs-app-studio).
+More information on =how to get started with Microsoft Teams development can be found in [Get started on the Microsoft Teams platform with Node.js and App Studio](https://docs.microsoft.com/en-us/microsoftteams/platform/get-started/get-started-nodejs-app-studio).
 
 # Using this sample locally
 
@@ -108,11 +108,11 @@ Where:
 
 # Deploying to Azure App Service
 
-## Visual Studio Code extensions
+### Visual Studio Code extensions
 
 The easiest way to deploy to Azure is to use Visual Studio Code with Azure extensions. There are many extensions for Azure - you can get all of them at once by installing the [Node Pack for Azure](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack) or you can install just the [Azure App Service](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azureappservice) extension.
 
-## Creating a new Node.js web app
+### Creating a new Node.js web app
 
 Once you've installed the extensions, you'll see a new Azure icon on the left in Visual Studio Code. Click on the + icon to create a new web app. Once you've created your web app:
 
@@ -127,7 +127,7 @@ Once you've installed the extensions, you'll see a new Azure icon on the left in
 1. Configure the Deployment Source for your app (either your local copy of this repository or one you've forked on GitHub).
 1. Deploy your web app. Visual Studio Code will tell you when you are done.
 
-## Deploying to Azure for Node.js on Windows
+### Deploying to Azure for Node.js on Windows
 
 Since this repo was optimized for Azure App Service, which runs on Linux, the `.deployment` file references `bash deploy.sh`. There's also a `deploy.cmd` if you want to deploy to Azure running Node.js on Windows. If you do, change `.deployment` to this instead:
 
