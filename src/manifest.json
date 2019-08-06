@@ -164,9 +164,7 @@
         "messageTeamMembers"
     ],
     "validDomains": [
-        "f4a0d6ce.ngrok.io",
-        "msfthack-teams-christi.azurewebsites.net",
-        "510dd696.ngrok.io",
+        "8be7c45d.ngrok.io",
         "*.blackbaudhosting.com",
         "*.blackbaud.com"
     ]
